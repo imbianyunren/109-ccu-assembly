@@ -1,0 +1,24 @@
+Q1:請描述自己安裝與執行ARM software development tool的過程
+A:
+1.安裝virtual box並使用ubuntu20.04
+2.下載ARM software development tools並解壓縮
+3.將arm-new/bin加入PATH
+	$ vi ~/.bashrc
+	加export PATH="home/Downloads/arm-new/bin:$PATH"在檔案最後一行
+	儲存並重開terminal
+4.測試編譯組譯程式出現Error: libmpfr.so.4
+	$ cd /usr/lib/x86_64-linux-gnu
+	$ ls -l libmpfr.*
+	$ sudo -s
+	$ ln –s libmpfr.so.6.0.2 libmpfr.so.4
+5.用apt-get安裝投影片P2、P3中的軟體套件
+6.測試hw1中組譯及編譯程式皆成功
+Q2:請說明hw1.o與hw1.exe的差別? 可能是什麼原因造成的?
+A:
+.o為.obj檔，是將原始碼翻譯成machine code，然而它只有單純翻譯，無法直接執行。
+於是需要透過連結將目的檔與函式庫結合產生可以執行的.exe檔，在建立連結同時也會去看原檔的內容有無錯誤。若沒有，則依作業系統格式產生執行檔。
+所以.o與.exe的差異在.exe多了link還有偵錯並依照作業系統讓它變成可執行檔案
+Q3: sample_O0.o與sample_O3.o檔案大小的差別? 可能是什麼原因造成的?
+A:
+On(n=0、1、2、3 or其他英文字)為gcc優化選項，gcc優化是為減少代碼大小和提高程式運行速度。
+O0完全沒有作優化，O3則是最高優化的選項，因此可以猜測O0檔比O3檔大，實際組譯出來也確實如此(sample_O0.o:860B vs sample_O3.o:844B)。
